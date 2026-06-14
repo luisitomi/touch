@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, signal, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -16,10 +16,11 @@ import { ProcesoPago } from './procceso-pago/procceso-pago';
 @Component({
   selector: 'app-reserva-flujo',
   standalone: true,
-  imports: [CommonModule, RouterLink, FullCalendarModule, ToastModule],
+  imports: [CommonModule, RouterLink, FullCalendarModule, ToastModule, ProcesoPago],
   providers: [DialogService, MessageService],
   templateUrl: './reserva-flujo.html',
   styleUrl: './reserva-flujo.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ReservaFlujo implements OnInit {
   private route = inject(ActivatedRoute);
@@ -205,7 +206,7 @@ export class ReservaFlujo implements OnInit {
     });
   }
 
-  private abrirModalPagoAutomatico(reservaId: number,precioTotalCalculado: number): void {
+  private abrirModalPagoAutomatico(reservaId: number, precioTotalCalculado: number): void {
     this.dialogRef1 = this.dialogService.open(ProcesoPago, {
       header: 'Procesando Transacción',
       width: '400px',

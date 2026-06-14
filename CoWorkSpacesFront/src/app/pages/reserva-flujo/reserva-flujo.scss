@@ -5,70 +5,13 @@ $accent: #8b5cf6;
 $text-light: #f8fafc;
 $text-muted: #94a3b8;
 
-.booking-flow-container {
-  background-color: $bg-dark;
-  color: $text-light;
-  min-height: 100vh;
-  padding-top: 5rem;
-  box-sizing: border-box;
-}
-
-.navbar-booking {
-  background-color: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 4rem;
-  box-sizing: border-box;
-
-  .nav-brand a {
-    color: $text-muted;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &:hover {
-      color: $text-light;
-    }
-  }
-
-  .nav-title h1 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-  }
-}
-
-.calendar-layout {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.calendar-card {
-  background-color: $bg-card;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-
-  ::v-deep {
-    .fc {
-      --fc-border-color: rgba(255, 255, 255, 0.08);
-      --fc-page-bg-color: #1e293b;
-      --fc-neutral-bg-color: #0f172a;
-      --fc-list-event-hover-bg-color: rgba(255, 255, 255, 0.05);
-      font-family: inherit;
-    }
+body {
+  .booking-flow-container {
+    background-color: $bg-dark !important;
+    color: $text-light !important;
+    min-height: 100vh;
+    padding-top: 5rem;
+    box-sizing: border-box;
 
     .fc-theme-standard th,
     .fc-theme-standard td,
@@ -76,14 +19,37 @@ $text-muted: #94a3b8;
       border-color: rgba(255, 255, 255, 0.08) !important;
     }
 
-    .fc-col-header-cell {
-      background-color: #111827;
-      padding: 0.75rem 0;
-      .fc-col-header-cell-cushion {
-        color: $text-light !important;
-        font-weight: 600;
-        text-decoration: none;
+    .fc .fc-scrollgrid-thead th.fc-col-header-cell {
+      background-color: #111827 !important;
+      background: #111827 !important;
+      padding: 0.75rem 0 !important;
+    }
+
+    .fc .fc-scrollgrid-thead th.fc-col-header-cell a.fc-col-header-cell-cushion,
+    .fc .fc-col-header-cell-cushion,
+    .fc a.fc-col-header-cell-cushion {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+      text-decoration: none !important;
+      opacity: 1 !important;
+      display: inline-block !important;
+    }
+
+    .fc .fc-scrollgrid-thead th.fc-day-today {
+      background-color: rgba(59, 130, 246, 0.15) !important;
+
+      a.fc-col-header-cell-cushion {
+        color: #3b82f6 !important;
+        font-weight: 700 !important;
       }
+    }
+
+    .fc {
+      --fc-border-color: rgba(255, 255, 255, 0.08) !important;
+      --fc-page-bg-color: #1e293b !important;
+      --fc-neutral-bg-color: #0f172a !important;
+      --fc-list-event-hover-bg-color: rgba(255, 255, 255, 0.05) !important;
+      font-family: inherit;
     }
 
     .fc-timegrid-slot {
@@ -141,6 +107,55 @@ $text-muted: #94a3b8;
   }
 }
 
+.navbar-booking {
+  background-color: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem;
+  box-sizing: border-box;
+
+  .nav-brand a {
+    color: $text-muted;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      color: $text-light;
+    }
+  }
+
+  .nav-title h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+.calendar-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.calendar-card {
+  background-color: $bg-card;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
 .calendar-loading {
   display: flex;
   flex-direction: column;
@@ -169,7 +184,7 @@ $text-muted: #94a3b8;
   .calendar-card {
     padding: 1rem;
   }
-  ::v-deep .fc-header-toolbar {
+  body .booking-flow-container .fc-header-toolbar {
     flex-direction: column;
     gap: 1rem;
   }

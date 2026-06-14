@@ -100,7 +100,8 @@ describe('ReservaPreviewModal', () => {
     expect(dialogRefMock.close).toHaveBeenCalledWith({
       seleccionado: true,
       message: 'Reserva confirmada de forma exitosa.',
-      reservaId: 442
+      reservaId: 442,
+      precioTotalCalculado: 120
     });
   });
 });
