@@ -1,0 +1,713 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Solution.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Espacios": {
+      "get": {
+        "tags": [
+          "Espacios"
+        ],
+        "summary": "Obtiene la lista de todos los espacios de CoWorking que se encuentran activos en el sistema.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EspacioDtoIEnumerableResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas": {
+      "post": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Crea una nueva reserva para un espacio de CoWorking aplicando control de concurrencia y reglas de negocio.",
+        "requestBody": {
+          "description": "Objeto de transferencia con los datos requeridos para la reserva.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservaResponseDtoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas/detalle/{codigo}": {
+      "get": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Obtiene el detalle extendido de una reserva específica utilizando su identificador único (UUID).",
+        "description": "Este endpoint es utilizado principalmente por la pantalla de consulta de reservas. \r\nPermite validar el estado de la transacción y calcular si la reserva cumple con las políticas de cancelación (24 horas de anticipación).",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "El identificador único en formato GUID (UUID) generado de forma automática al registrar la reserva.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito. Retorna los datos de la reserva solicitada mapeados de forma correcta.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservaDetalleDtoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Petición Incorrecta. El formato del código enviado en la URL no corresponde a un GUID válido.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No Encontrado. La reserva asociada al código provisto no existe en el sistema.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas/preview-tarifa": {
+      "post": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Obtiene una previsualización del precio estimado de la reserva aplicando la lógica de tarifa dinámica.",
+        "requestBody": {
+          "description": "Objeto con los horarios y el espacio a evaluar para el cálculo en tiempo real.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReservaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrecioPreviewDtoResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas/buscar/{codigo}": {
+      "get": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Busca y obtiene el detalle completo de una reserva por su código único UUID.",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "Código único UUID de la reserva en formato string.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservaConsultaDtoResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas/agenda": {
+      "post": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Obtiene la agenda semanal completa de un espacio físico detallando configuraciones y bloques de horas ocupados.",
+        "requestBody": {
+          "description": "Objeto de transferencia con los parámetros de consulta para la agenda.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaAgendaSemanalDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaAgendaSemanalDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaAgendaSemanalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retorna de forma exitosa la agenda operativa y disponibilidad de la semana solicitada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgendaEspacioDtoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Si los parámetros ingresados en el cuerpo no cumplen con las validaciones de formato o negocio.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Si el identificador del espacio físico proporcionado no existe en el sistema.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservas/cancelar/{codigo}": {
+      "post": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Procesa la cancelación de una reserva basándose en las políticas de tiempo y estado del negocio.",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "El identificador único (UUID) de la reserva a cancelar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito. La reserva fue cancelada y se detalla la política de reembolso aplicada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Petición Incorrecta. El código provisto no es un GUID válido o la reserva no puede ser cancelada (ej. Estado Completada).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgendaEspacioDto": {
+        "type": "object",
+        "properties": {
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "tarifaBaseHora": {
+            "type": "number",
+            "format": "double"
+          },
+          "horaApertura": {
+            "type": "string",
+            "nullable": true
+          },
+          "horaCierre": {
+            "type": "string",
+            "nullable": true
+          },
+          "reservasOcupadas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReservaOcupadaDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgendaEspacioDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/AgendaEspacioDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsultaAgendaSemanalDto": {
+        "type": "object",
+        "properties": {
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fechaInicio": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearReservaDto": {
+        "type": "object",
+        "properties": {
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "horaInicio": {
+            "type": "string",
+            "nullable": true
+          },
+          "horaFin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EspacioDto": {
+        "type": "object",
+        "properties": {
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "capacidadPersonas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tarifaBaseHora": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EspacioDtoIEnumerableResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EspacioDto"
+            },
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrecioPreviewDto": {
+        "type": "object",
+        "properties": {
+          "precioCalculado": {
+            "type": "number",
+            "format": "double"
+          },
+          "reglaAplicada": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrecioPreviewDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PrecioPreviewDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaConsultaDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaConsultaDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ReservaConsultaDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaDetalleDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigo": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nombreEspacio": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "horaInicio": {
+            "type": "string",
+            "nullable": true
+          },
+          "horaFin": {
+            "type": "string",
+            "nullable": true
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaCompletaInicio": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaDetalleDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ReservaDetalleDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaOcupadaDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaInicio": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaResponseDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precioFinal": {
+            "type": "number",
+            "format": "double"
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReservaResponseDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ReservaResponseDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Espacios"
+    },
+    {
+      "name": "Reservas"
+    }
+  ]
+}

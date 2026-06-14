@@ -1,0 +1,11 @@
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\bin\Debug\net10.0\Solution.Common.deps.json
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\bin\Debug\net10.0\Solution.Common.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\bin\Debug\net10.0\Solution.Common.pdb
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.AssemblyInfoInputs.cache
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.AssemblyInfo.cs
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\refint\Solution.Common.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\Solution.Common.pdb
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Common\obj\Debug\net10.0\ref\Solution.Common.dll

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Solution.API</name>
+    </assembly>
+    <members>
+        <member name="T:Solution.API.Controllers.EspaciosController">
+            <summary>
+            Controlador encargado de gestionar las operaciones y consultas para los espacios de CoWorking.
+            </summary>
+        </member>
+        <member name="M:Solution.API.Controllers.EspaciosController.ObtenerTodos">
+            <summary>
+            Obtiene la lista de todos los espacios de CoWorking que se encuentran activos en el sistema.
+            </summary>
+            <returns>Retorna una estructura unificada con el listado de espacios disponibles.</returns>
+        </member>
+        <member name="T:Solution.API.Controllers.ReservasController">
+            <summary>
+            Controlador encargado de gestionar las operaciones de reservas para los espacios de CoWorking.
+            </summary>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.CrearReserva(Solution.Core.DTOs.CrearReservaDto)">
+            <summary>
+            Crea una nueva reserva para un espacio de CoWorking aplicando control de concurrencia y reglas de negocio.
+            </summary>
+            <param name="dto">Objeto de transferencia con los datos requeridos para la reserva.</param>
+            <returns>Retorna una estructura unificada con el estado de la operación y los datos de la reserva creada.</returns>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.ObtenerDetalleReserva(System.String)">
+            <summary>
+            Obtiene el detalle extendido de una reserva específica utilizando su identificador único (UUID).
+            </summary>
+            <remarks>
+            Este endpoint es utilizado principalmente por la pantalla de consulta de reservas. 
+            Permite validar el estado de la transacción y calcular si la reserva cumple con las políticas de cancelación (24 horas de anticipación).
+            </remarks>
+            <param name="codigo">El identificador único en formato GUID (UUID) generado de forma automática al registrar la reserva.</param>
+            <returns>Retorna un objeto estandarizado con la información detallada del espacio reservado, costos y horarios.</returns>
+            <response code="200">Éxito. Retorna los datos de la reserva solicitada mapeados de forma correcta.</response>
+            <response code="400">Petición Incorrecta. El formato del código enviado en la URL no corresponde a un GUID válido.</response>
+            <response code="404">No Encontrado. La reserva asociada al código provisto no existe en el sistema.</response>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.ObtenerPreviewPrecio(Solution.Core.DTOs.CrearReservaDto)">
+            <summary>
+            Obtiene una previsualización del precio estimado de la reserva aplicando la lógica de tarifa dinámica.
+            </summary>
+            <param name="dto">Objeto con los horarios y el espacio a evaluar para el cálculo en tiempo real.</param>
+            <returns>Retorna el monto total calculado en base a la demanda y las horas solicitadas.</returns>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.BuscarPorCodigo(System.String)">
+            <summary>
+            Busca y obtiene el detalle completo de una reserva por su código único UUID.
+            </summary>
+            <param name="codigo">Código único UUID de la reserva en formato string.</param>
+            <returns>Retorna los datos detallados de la reserva y las políticas de cancelación aplicables.</returns>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.GetAgendaSemana(Solution.Core.DTOs.ConsultaAgendaSemanalDto)">
+            <summary>
+            Obtiene la agenda semanal completa de un espacio físico detallando configuraciones y bloques de horas ocupados.
+            </summary>
+            <param name="dto">Objeto de transferencia con los parámetros de consulta para la agenda.</param>
+            <returns>La información de configuración del espacio físico junto a su respectivo listado de reservas activas.</returns>
+            <response code="200">Retorna de forma exitosa la agenda operativa y disponibilidad de la semana solicitada.</response>
+            <response code="400">Si los parámetros ingresados en el cuerpo no cumplen con las validaciones de formato o negocio.</response>
+            <response code="404">Si el identificador del espacio físico proporcionado no existe en el sistema.</response>
+        </member>
+        <member name="M:Solution.API.Controllers.ReservasController.CancelarReserva(System.String)">
+            <summary>
+            Procesa la cancelación de una reserva basándose en las políticas de tiempo y estado del negocio.
+            </summary>
+            <param name="codigo">El identificador único (UUID) de la reserva a cancelar.</param>
+            <returns>Retorna un objeto estandarizado con el mensaje de reembolso correspondiente.</returns>
+            <response code="200">Éxito. La reserva fue cancelada y se detalla la política de reembolso aplicada.</response>
+            <response code="400">Petición Incorrecta. El código provisto no es un GUID válido o la reserva no puede ser cancelada (ej. Estado Completada).</response>
+        </member>
+        <member name="T:Program">
+            <summary>
+            Auto-generated public partial Program class for top-level statement apps.
+            </summary>
+        </member>
+    </members>
+</doc>

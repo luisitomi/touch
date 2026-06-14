@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Database/Database.csproj" Id="2c8ebd50-60f9-4555-bc72-6c4ae06e577e" />
+  <Project Path="Solution.API/Solution.API.csproj" />
+  <Project Path="Solution.Common/Solution.Common.csproj" />
+  <Project Path="Solution.Core/Solution.Core.csproj" />
+  <Project Path="Solution.Infrastructure/Solution.Infrastructure.csproj" />
+  <Project Path="Solution.Tests/Solution.Tests.csproj" />
+</Solution>

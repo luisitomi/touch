@@ -1,0 +1,17 @@
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Infrastructure.deps.json
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Infrastructure.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Infrastructure.pdb
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Core.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Core.pdb
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.AssemblyInfo.cs
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.312FE0A9.Up2Date
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\refint\Solution.Infrastructure.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\Solution.Infrastructure.pdb
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\obj\Debug\net10.0\ref\Solution.Infrastructure.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Common.dll
+C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Infrastructure\bin\Debug\net10.0\Solution.Common.pdb
