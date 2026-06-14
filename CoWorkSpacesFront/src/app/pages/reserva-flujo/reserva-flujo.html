@@ -1,0 +1,34 @@
+<p-toast></p-toast>
+<div class="booking-flow-container">
+
+  <nav class="navbar-booking">
+    <div class="nav-brand">
+      <a routerLink="/salas"><i class="pi pi-arrow-left"></i> Volver a Salas</a>
+    </div>
+    <div class="nav-title">
+      <h1>Panel de <span class="text-gradient">Reservas</span></h1>
+    </div>
+  </nav>
+
+  <main class="calendar-layout">
+    <div class="calendar-card">
+
+      @if (nombreEspacio()) {
+        <div class="space-brief">
+          <h2>{{ nombreEspacio() }}</h2>
+          <p>Tarifa Base: <span class="price-tag">${{ precioEspacio() }}.00 / hora</span></p>
+        </div>
+      }
+
+      @if (opcionesCalendario()) {
+        <full-calendar [options]="opcionesCalendario()!"></full-calendar>
+      } @else {
+        <div class="calendar-loading">
+          <i class="pi pi-spin pi-spinner"></i>
+          <p>Sincronizando agenda del espacio con el servidor...</p>
+        </div>
+      }
+    </div>
+  </main>
+
+</div>

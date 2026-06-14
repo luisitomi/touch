@@ -1,0 +1,78 @@
+<p-toast></p-toast>
+
+<div class="consulta-page-wrapper">
+  <div class="consulta-page-container">
+
+    <div class="back-navigation">
+      <button pButton icon="pi pi-arrow-left" label="Volver a la Página Principal" class="p-button-text"
+        routerLink="/"></button>
+    </div>
+
+    @if (cargando()) {
+    <div class="loading-state">
+      <i class="pi pi-spin pi-spinner"
+        style="font-size: 2rem; color: #3b82f6; margin-bottom: 1rem; display: block;"></i>
+      <span>Buscando información detallada de la reserva...</span>
+    </div>
+    }
+
+    @if (!cargando() && reserva()) {
+    <div class="detail-card-box animate-fade">
+      <p-card [subheader]="'Código Único: ' + reserva().codigo">
+
+        <h2>{{ reserva().nombreEspacio }}</h2>
+
+        <div class="grid-details">
+          <p><strong>Fecha de Reserva:</strong> {{ reserva().fecha | date:'dd/MM/yyyy' }}</p>
+
+          <p><strong>Horario Pactado:</strong>
+            {{ (reserva().fechaCompletaInicio.split('T')[0] + 'T' + reserva().horaInicio) | date:'hh:mm a' }} hasta
+            {{ (reserva().fechaCompletaInicio.split('T')[0] + 'T' + reserva().horaFin) | date:'hh:mm a' }}
+          </p>
+
+          <p><strong>Monto Total Neto:</strong> S/. {{ reserva().total | number:'1.2-2' }}</p>
+
+          <p><strong>Estado de la Transacción:</strong>
+            <span class="badge" [ngClass]="reserva().estado?.toLowerCase()">
+              {{ reserva().estado.trim() }}
+            </span>
+          </p>
+        </div>
+
+        <hr class="custom-hr" />
+
+        <div class="rules-section">
+          <h3>Términos y Políticas de Cancelación</h3>
+          <ul>
+            <li><strong>Aviso mayor o igual a 48 horas:</strong> Reembolso total íntegro (100%).</li>
+            <li><strong>Aviso entre 24 y 48 horas:</strong> Reembolso parcial del 50%.</li>
+            <li><strong>Aviso menor a 24 horas:</strong> Penalidad total (No aplica devolución).</li>
+          </ul>
+
+          <div class="action-footer" *ngIf="reserva().estado === 'Confirmada'">
+            @if (obtenerTramoCancelacion(reserva().fechaCompletaInicio) !== 'PENALIDAD_TOTAL') {
+            <div class="flex-column-gap">
+              @if (obtenerTramoCancelacion(reserva().fechaCompletaInicio) === 'REEMBOLSO_PARCIAL') {
+              <div class="warn-policy-inline-alert mb-3">
+                <i class="pi pi-info-circle"></i>
+                <span>Nota: Esta cancelación aplica penalidad del 50% por encontrarse en el rango de 24 a 48
+                  horas.</span>
+              </div>
+              }
+              <button pButton label="Proceder con la Cancelación" icon="pi pi-times-circle" class="p-button-danger"
+                (click)="cancelarReserva()" [loading]="procesandoCancelacion()"></button>
+            </div>
+            } @else {
+            <div class="error-policy-alert">
+              <i class="pi pi-exclamation-triangle"></i>
+              <span>El botón de cancelación se encuentra deshabilitado debido a que la reserva inicia en menos de 24
+                horas.</span>
+            </div>
+            }
+          </div>
+        </div>
+      </p-card>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="checkout-modal">
+
+  <div *ngIf="cargando()" class="loading-box">
+    <p-progressSpinner strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
+    <p>Procesando cotización segura...</p>
+  </div>
+
+  <div *ngIf="!cargando()" class="checkout-content">
+
+    <div class="checkout-header">
+      <i class="pi pi-lock secure-icon"></i>
+      <span>Pago Seguro de Reserva</span>
+    </div>
+
+    <div class="form-group">
+      <label>Espacio a Reservar</label>
+      <input type="text" pInputText [value]="datosEntrada.nombreEspacio" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Fecha Seleccionada</label>
+      <input type="text" pInputText [value]="fechaFormateada()" readonly />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group half">
+        <label>Desde</label>
+        <input type="text" pInputText [value]="horaInicioFormateada()" readonly />
+      </div>
+      <div class="form-group half">
+        <label>Hasta</label>
+        <input type="text" pInputText [value]="horaFinFormateada()" readonly />
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-row">
+        <span>Tarifa Base</span>
+        <span>${{ tarifaBaseFormateada() }} / h</span>
+      </div>
+      <div class="summary-row benefit">
+        <span>{{ reglaAplicada() }}</span>
+      </div>
+      <hr class="summary-divider" />
+      <div class="summary-total">
+        <span class="total-label">Total a Pagar</span>
+        <span class="total-amount">${{ precioCalculado() }}</span>
+      </div>
+    </div>
+
+    <div class="security-badge">
+      <i class="pi pi-shield badge-icon"></i>
+      <span>Garantía de cifrado SSL de 256 bits</span>
+    </div>
+
+    <div class="actions-row">
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-arrow-left"
+        class="btn-cancelar"
+        [disabled]="procesandoPago()"
+        (click)="cancelar()">
+      </button>
+      <button
+        pButton
+        type="button"
+        [label]="procesandoPago() ? 'Procesando...' : 'Pagar $' + precioCalculado()"
+        [icon]="procesandoPago() ? 'pi pi-spin pi-spinner' : 'pi pi-credit-card'"
+        class="btn-pagar"
+        [disabled]="procesandoPago()"
+        (click)="confirmar()">
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,199 @@
+.checkout-modal {
+  background-color: #ffffff !important;
+  padding: 1.75rem;
+  border-radius: 16px;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  gap: 1.25rem;
+
+  p {
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.checkout-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.checkout-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 1rem;
+
+  .secure-icon {
+    color: #10b981;
+    font-size: 1.1rem;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #4b5563;
+  }
+
+  input[readonly] {
+    background-color: #f9fafb !important;
+    color: #374151 !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 0.75rem 0.85rem;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+
+  .half {
+    flex: 1;
+  }
+}
+
+.summary-box {
+  background: linear-gradient(145deg, #fafafa, #f5f7fa);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #6b7280;
+
+    &.benefit {
+      color: #059669;
+      font-weight: 500;
+    }
+  }
+
+  .summary-divider {
+    border: 0;
+    border-top: 1px dashed #d1d5db;
+    margin: 0.4rem 0;
+  }
+
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .total-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .total-amount {
+      font-size: 1.6rem;
+      color: #10b981;
+      font-weight: 800;
+    }
+  }
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: -0.25rem;
+
+  .badge-icon {
+    font-size: 0.85rem;
+  }
+}
+
+.actions-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  width: 100%;
+
+  button {
+    flex: 1;
+    padding: 0.9rem 1.25rem !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-cancelar {
+    background-color: #ffffff !important;
+    color: #4b5563 !important;
+    border-color: #d1d5db !important;
+
+    &:hover {
+      background-color: #f3f4f6 !important;
+      border-color: #9ca3af !important;
+    }
+  }
+
+  .btn-pagar {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+
+    &:hover {
+      background-color: #1d4ed8 !important;
+      border-color: #1d4ed8 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

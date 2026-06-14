@@ -1,0 +1,73 @@
+<div class="salas-container">
+
+  <nav class="navbar-salas">
+    <div class="nav-brand">
+      <a routerLink="/"><i class="pi pi-arrow-left"></i> Volver al Inicio</a>
+    </div>
+    <div class="nav-title">
+      <h1>Explorar <span class="text-gradient">Espacios</span></h1>
+    </div>
+  </nav>
+
+  <header class="catalog-header">
+    <div class="header-info">
+      <h2>Encuentra tu próximo entorno de alta productividad</h2>
+      <p>Salas optimizadas acústicamente, conectividad simétrica y disponibilidad transaccional inmediata en tiempo real.</p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <i class="pi pi-spin pi-spinner"></i>
+      <p>Sincronizando con el servidor de datos de .NET...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-container">
+      <i class="pi pi-exclamation-triangle"></i>
+      <p>Error en la capa de datos: {{ error() }}</p>
+    </div>
+  } @else {
+    <main class="rooms-section">
+      <div class="rooms-grid">
+        @for (room of espacios(); track room.espacioId) {
+          <article class="room-card">
+            <div class="room-image-container">
+              <img [src]="getImagenEspacio(room.espacioId)" [alt]="room.nombre" class="room-img-fluid" />
+              <span class="room-badge premium">Disponible</span>
+            </div>
+
+            <div class="room-body">
+              <h3>{{ room.nombre }}</h3>
+
+              <div class="room-features">
+                <div class="feature-item">
+                  <i class="pi pi-users"></i>
+                  <span>Capacidad máxima: <strong>{{ room.capacidadPersonas }} personas</strong></span>
+                </div>
+                <div class="feature-item">
+                  <i class="pi pi-wifi"></i>
+                  <span>Ancho de banda: <strong>Fibra óptica dedicada</strong></span>
+                </div>
+                <div class="feature-item">
+                  <i class="pi pi-shield"></i>
+                  <span>Aislamiento: <strong>Aislamiento acústico avanzado</strong></span>
+                </div>
+              </div>
+
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price">{{ room.tarifaBaseHora | currency:'USD':'symbol':'1.2-2' }}</span>
+                  <span class="per-hour">/ hora</span>
+                </div>
+                <button class="btn-card-action" [routerLink]="['/reservar']" [queryParams]="{ espacioId: room.espacioId }">
+                  Reservar espacio <i class="pi pi-calendar-plus"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </main>
+  }
+
+</div>

@@ -1,0 +1,97 @@
+<p-toast></p-toast>
+
+<div class="landing-wrapper">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="brand" href="#"><i class="pi pi-bolt text-primary"></i> CoWork<span class="text-gradient">Spaces</span></a>
+
+      <div class="nav-search-box">
+        <input
+          pInputText
+          [(ngModel)]="codigoBusqueda"
+          placeholder="Código de reserva (Ej: RES-10294)"
+          [disabled]="cargandoConsulta()"
+          class="p-inputtext-sm" />
+        <button
+          pButton
+          label="Consultar"
+          icon="pi pi-search"
+          (click)="buscarYRedireccionar()"
+          [loading]="cargandoConsulta()"
+          class="p-button-sm p-button-outlined"></button>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn-nav" routerLink="/reservar">Ver Horarios</button>
+        <button class="btn-primary-sm" routerLink="/reservar">Reservar Ahora</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="badge-promo"><i class="pi pi-sparkles"></i> Espacios Flexibles en Tiempo Real</span>
+      <h1 class="hero-title">Reuniones de Alto Nivel, <br>Sin <span class="text-gradient">Interrupciones</span></h1>
+      <p class="hero-subtitle">
+        Alquila salas premium totalmente equipadas por horas. Conectividad simétrica ultra-rápida, aislamiento acústico
+        y confirmación transaccional inmediata.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-main" routerLink="/salas">
+          Explorar Salas <i class="pi pi-arrow-right ms-2"></i>
+        </button>
+        <a href="#salas" class="btn-secondary">Saber más</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="salas" class="rooms-section">
+    <div class="section-header">
+      <h2>Nuestros <span class="text-gradient">Meeting Rooms</span></h2>
+      <p>Selecciona el espacio ideal adaptado a los objetivos de tu equipo.</p>
+    </div>
+
+    @if (loading()) {
+    <div class="loading-container">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3b82f6;"></i>
+      <p>Cargando espacios disponibles...</p>
+    </div>
+    } @else if (error()) {
+    <div class="error-container">
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: #ef4444;"></i>
+      <p>{{ error() }}</p>
+    </div>
+    } @else {
+    <div class="rooms-grid">
+      @for (room of espacios(); track room.espacioId) {
+      <div class="room-card">
+        <div class="room-image-container">
+          <img [src]="getImagenEspacio(room.espacioId)" [alt]="room.nombre" class="room-img-fluid" />
+          <span class="room-badge">Disponible</span>
+        </div>
+        <div class="room-body">
+          <h3>{{ room.nombre }}</h3>
+          <div class="room-features">
+            <span><i class="pi pi-users"></i> Hasta {{ room.capacidadPersonas }} pers.</span>
+            <span><i class="pi pi-wifi"></i> Fibra Dedicada</span>
+            <span><i class="pi pi-shield"></i> 100% Privado</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price">
+              <span class="price">{{ room.tarifaBaseHora | currency:'USD':'symbol':'1.2-2' }}</span><span
+                class="per-hour">/ hora</span>
+            </div>
+            <button class="btn-card-action" [routerLink]="['/reservar']" [queryParams]="{ espacioId: room.espacioId }">
+              Separar <i class="pi pi-calendar-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </section>
+
+</div>
