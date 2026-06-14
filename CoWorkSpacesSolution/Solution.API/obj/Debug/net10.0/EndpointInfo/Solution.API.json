@@ -35,6 +35,63 @@
         }
       }
     },
+    "/api/Reportes/dashboard": {
+      "get": {
+        "tags": [
+          "Reportes"
+        ],
+        "parameters": [
+          {
+            "name": "fechaDesde",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "fechaHasta",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReporteDashboardDtoResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Reservas": {
       "post": {
         "tags": [
@@ -539,6 +596,70 @@
         },
         "additionalProperties": false
       },
+      "ReporteDashboardDto": {
+        "type": "object",
+        "properties": {
+          "ingresosTotalesGlobales": {
+            "type": "number",
+            "format": "double"
+          },
+          "horaMasDemandada": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "reportePorEspacio": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReporteEspacioDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReporteDashboardDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ReporteDashboardDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReporteEspacioDto": {
+        "type": "object",
+        "properties": {
+          "espacioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombreEspacio": {
+            "type": "string",
+            "nullable": true
+          },
+          "ingresosPorEspacio": {
+            "type": "number",
+            "format": "double"
+          },
+          "tasaOcupacionPorcentaje": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "ReservaConsultaDto": {
         "type": "object",
         "properties": {
@@ -715,6 +836,9 @@
   "tags": [
     {
       "name": "Espacios"
+    },
+    {
+      "name": "Reportes"
     },
     {
       "name": "Reservas"

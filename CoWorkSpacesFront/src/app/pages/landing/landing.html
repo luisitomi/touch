@@ -94,4 +94,59 @@
     }
   </section>
 
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>Estadísticas del <span class="text-gradient">Ecosistema</span></h2>
+      <p>Métricas consolidadas de uso y rendimiento financiero general de los espacios.</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-field">
+        <label>Desde</label>
+        <p-datePicker [(ngModel)]="fechaDesdeFiltro" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body"></p-datePicker>
+      </div>
+      <div class="filter-field">
+        <label>Hasta</label>
+        <p-datePicker [(ngModel)]="fechaHastaFiltro" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body"></p-datePicker>
+      </div>
+      <button pButton label="Filtrar Métricas" icon="pi pi-filter" class="p-button-primary btn-filter" (click)="cargarEstadisticasDashboard()"></button>
+    </div>
+
+    @if (cargandoReporte()) {
+      <div class="loading-container">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3b82f6;"></i>
+        <p>Procesando analíticas en tiempo real...</p>
+      </div>
+    } @else if (reporteData()) {
+
+      <div class="metrics-summary">
+        <div class="metric-card income-card">
+          <span class="metric-label">Ingresos Totales Consolidados</span>
+          <h3 class="metric-value">{{ reporteData()?.ingresosTotalesGlobales | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+
+        <div class="metric-card peak-card">
+          <span class="metric-label">Horario de Pico Operacional</span>
+          <h3 class="metric-value">{{ reporteData()?.horaMasDemandada }} hrs</h3>
+        </div>
+      </div>
+
+      <div class="charts-layout">
+        <div class="chart-wrapper-card">
+          <h4>Porcentaje de Tasa de Ocupación</h4>
+          <div class="chart-container-inner">
+            <p-chart type="bar" [data]="chartOcupacionData()" [options]="chartOptions()"></p-chart>
+          </div>
+        </div>
+
+        <div class="chart-wrapper-card">
+          <h4>Participación de Rendimiento Financiero</h4>
+          <div class="chart-container-inner pie-inner">
+            <p-chart type="doughnut" [data]="chartIngresosData()" [options]="chartOptions()"></p-chart>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+
 </div>

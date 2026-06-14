@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Landing } from './landing';
 import { EspacioService } from '../../core/services/espacio.service';
 import { ReservaService } from '../../core/services/reserva.service';
+import { ReporteService } from '../../core/services/reporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -12,6 +13,7 @@ describe('Landing', () => {
   let fixture: ComponentFixture<Landing>;
   let espacioServiceMock: any;
   let reservaServiceMock: any;
+  let reporteServiceMock: any;
   let routerMock: any;
   let messageServiceMock: any;
 
@@ -21,6 +23,21 @@ describe('Landing', () => {
     };
     reservaServiceMock = {
       getReservaPorCodigo: vi.fn()
+    };
+    reporteServiceMock = {
+      obtenerReporte: vi.fn().mockReturnValue(of({
+        status: 'SUCCESS',
+        message: 'OK',
+        data: {
+          ingresosTotalesGlobales: 5000,
+          horaMasDemandada: '10:00:00',
+          reportePorEspacio: [
+            { espacioId: 1, nombreEspacio: 'Sala A', ingresosPorEspacio: 3000, tasaOcupacionPorcentaje: 75 },
+            { espacioId: 2, nombreEspacio: 'Sala B', ingresosPorEspacio: 2000, tasaOcupacionPorcentaje: 45 }
+          ]
+        },
+        transactionId: '123'
+      }))
     };
     routerMock = {
       navigate: vi.fn()
@@ -34,6 +51,7 @@ describe('Landing', () => {
       providers: [
         { provide: EspacioService, useValue: espacioServiceMock },
         { provide: ReservaService, useValue: reservaServiceMock },
+        { provide: ReporteService, useValue: reporteServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: MessageService, useValue: messageServiceMock },
         { provide: ActivatedRoute, useValue: { queryParams: of({}) } }
@@ -49,6 +67,17 @@ describe('Landing', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should initialize date parameters correctly pointing one month forward from today', () => {
+    const hoy = new Date();
+    const unMesDespues = new Date();
+    unMesDespues.setMonth(hoy.getMonth() + 1);
+
+    fixture.detectChanges();
+
+    expect(component.fechaDesdeFiltro().toDateString()).toEqual(hoy.toDateString());
+    expect(component.fechaHastaFiltro().toDateString()).toEqual(unMesDespues.toDateString());
+  });
+
   it('should load spaces on init when service returns success', () => {
     const mockEspacios = [
       { id: 1, nombre: 'Sala de Juntas', disponible: true },
@@ -61,6 +90,24 @@ describe('Landing', () => {
     expect(component.espacios()).toEqual(mockEspacios as any);
     expect(component.loading()).toBeFalsy();
     expect(component.error()).toBeNull();
+  });
+
+  it('should load dashboard analytics and map charts correctly on init', () => {
+    fixture.detectChanges();
+
+    expect(component.cargandoReporte()).toBeFalsy();
+    expect(component.reporteData()?.ingresosTotalesGlobales).toBe(5000);
+    expect(component.chartOcupacionData().labels).toEqual(['Sala A', 'Sala B']);
+    expect(component.chartIngresosData().datasets[0].data).toEqual([3000, 2000]);
+  });
+
+  it('should handle dashboard analytics service failure gracefully', () => {
+    reporteServiceMock.obtenerReporte.mockReturnValue(throwError(() => new Error('API Drop')));
+
+    fixture.detectChanges();
+
+    expect(component.cargandoReporte()).toBeFalsy();
+    expect(component.reporteData()).toBeNull();
   });
 
   it('should set error message on init when service returns non-success status', () => {

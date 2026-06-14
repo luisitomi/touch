@@ -25,6 +25,49 @@
     ]
   },
   {
+    "ContainingType": "Solution.API.Controllers.ReportesController",
+    "Method": "ObtenerReporteDashboard",
+    "RelativePath": "api/Reportes/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fechaDesde",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "fechaHasta",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Solution.Core.DTOs.ResponseDto\u00601[[Solution.Core.DTOs.ReporteDashboardDto, Solution.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Solution.Core.DTOs.ResponseDto\u00601[[System.Object, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Solution.Core.DTOs.ResponseDto\u00601[[System.Object, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
     "ContainingType": "Solution.API.Controllers.ReservasController",
     "Method": "CrearReserva",
     "RelativePath": "api/Reservas",

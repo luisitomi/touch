@@ -5,10 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { ChartModule } from 'primeng/chart';
+import { DatePickerModule } from 'primeng/datepicker';
 import { MessageService } from 'primeng/api';
 import { Espacio } from '../../core/models/espacio.model';
 import { ReservaService } from '../../core/services/reserva.service';
 import { EspacioService } from '../../core/services/espacio.service';
+import { ReporteService } from '../../core/services/reporte.service';
+import { ReporteDashboard } from '../../core/models/reporte-dashboard.model';
 
 @Component({
   selector: 'app-landing',
@@ -19,7 +23,9 @@ import { EspacioService } from '../../core/services/espacio.service';
     FormsModule,
     InputTextModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    ChartModule,
+    DatePickerModule
   ],
   providers: [MessageService],
   templateUrl: './landing.html',
@@ -28,6 +34,7 @@ import { EspacioService } from '../../core/services/espacio.service';
 export class Landing implements OnInit {
   private espacioService = inject(EspacioService);
   private reservaService = inject(ReservaService);
+  private reporteService = inject(ReporteService);
   private messageService = inject(MessageService);
   private router = inject(Router);
 
@@ -37,6 +44,15 @@ export class Landing implements OnInit {
 
   public codigoBusqueda = signal<string>('');
   public cargandoConsulta = signal<boolean>(false);
+
+  public fechaDesdeFiltro = signal<Date>(new Date());
+  public fechaHastaFiltro = signal<Date>(new Date(new Date().setMonth(new Date().getMonth() + 1)));
+
+  public reporteData = signal<ReporteDashboard | null>(null);
+  public cargandoReporte = signal<boolean>(true);
+  public chartOcupacionData = signal<any>({ labels: [], datasets: [] });
+  public chartIngresosData = signal<any>({ labels: [], datasets: [] });
+  public chartOptions = signal<any>({});
 
   private imagenesEspacios: Record<number, string> = {
     1: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop',
@@ -61,6 +77,8 @@ export class Landing implements OnInit {
         this.loading.set(false);
       }
     });
+
+    this.cargarEstadisticasDashboard();
   }
 
   public getImagenEspacio(id: number): string {
@@ -87,6 +105,77 @@ export class Landing implements OnInit {
         }
       },
       error: () => this.cargandoConsulta.set(false)
+    });
+  }
+
+  public cargarEstadisticasDashboard(): void {
+    this.cargandoReporte.set(true);
+
+    const desdeStr = this.fechaDesdeFiltro().toISOString().split('T')[0];
+    const hastaStr = this.fechaHastaFiltro().toISOString().split('T')[0];
+
+    this.reporteService.obtenerReporte(desdeStr, hastaStr).subscribe({
+      next: (response) => {
+        if (response.status === 'SUCCESS' && response.data) {
+          const data = response.data;
+          this.reporteData.set(data);
+          this.configurarOpcionesGraficos();
+          this.armarGraficoOcupacion(data.reportePorEspacio);
+          this.armarGraficoIngresos(data.reportePorEspacio);
+        }
+        this.cargandoReporte.set(false);
+      },
+      error: () => this.cargandoReporte.set(false)
+    });
+  }
+
+  private configurarOpcionesGraficos(): void {
+    this.chartOptions.set({
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#94a3b8',
+            font: { size: 12, family: 'system-ui' }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          ticks: { color: '#94a3b8' }
+        },
+        y: {
+          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          ticks: { color: '#94a3b8' }
+        }
+      }
+    });
+  }
+
+  private armarGraficoOcupacion(lista: any[]): void {
+    this.chartOcupacionData.set({
+      labels: lista.map(x => x.nombreEspacio),
+      datasets: [{
+        label: 'Tasa de Ocupación (%)',
+        data: lista.map(x => x.tasaOcupacionPorcentaje),
+        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+        borderColor: '#3b82f6',
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    });
+  }
+
+  private armarGraficoIngresos(lista: any[]): void {
+    this.chartIngresosData.set({
+      labels: lista.map(x => x.nombreEspacio),
+      datasets: [{
+        data: lista.map(x => x.ingresosPorEspacio),
+        backgroundColor: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ec407a'],
+        borderWidth: 0
+      }]
     });
   }
 }

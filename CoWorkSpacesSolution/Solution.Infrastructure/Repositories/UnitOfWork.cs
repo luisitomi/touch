@@ -12,6 +12,7 @@ public class UnitOfWork : IUnitOfWork
     private IDbTransaction? _transaction;
     private IReservaRepository? _reservas;
     private IEspacioRepository? _espacios;
+    private IReporteRepository? _reportes;
 
     public UnitOfWork(IConfiguration configuration)
     {
@@ -27,6 +28,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IReservaRepository Reservas => _reservas ??= new ReservaRepository(_connection, this);
     public IEspacioRepository Espacios => _espacios ??= new EspacioRepository(_connection, this);
+    public IReporteRepository Reporte => _reportes ??= new ReporteRepository(_connection, this);
 
     public void BeginTransaction()
     {
