@@ -66,4 +66,13 @@ export class ReservaService {
   public cancelarReservaId(reservaId: string): Observable<Response<any>> {
     return this.http.post<Response<any>>(`${this.apiUrl}/cancelar/${reservaId}`, {});
   }
+
+  public confirmarPago(reservaId: number, precioTotalCalculado: number): Observable<Response<any>> {
+    const body = {
+      reservaId,
+      precioTotalCalculado
+    };
+
+    return this.http.post<Response<any>>(`${this.apiUrl}/confirmar-pago`, body);
+  }
 }

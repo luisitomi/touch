@@ -314,5 +314,44 @@ namespace Solution.API.Controllers
                 });
             }
         }
+
+
+        /// <summary>
+        /// Confirma el pago de una reserva existente cambiando su estado a Confirmada y actualizando el precio final cobrado.
+        /// </summary>
+        /// <param name="dto">Objeto de transferencia con el ID de la reserva y el monto total final.</param>
+        /// <returns>Retorna una estructura unificada con el estado de confirmación de la reserva procesada.</returns>
+        /// <response code="200">SUCCESS. La reserva ha sido pagada, actualizada y confirmada con éxito.</response>
+        /// <response code="500">INTERNAL_SERVER_ERROR. Sucedió un error inesperado al procesar la confirmación del pago en el servidor.</response>
+        [HttpPost("confirmar-pago")]
+        [ProducesResponseType(typeof(ResponseDto<ConfirmacionReservaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ConfirmarPago([FromBody] ConfirmarPagoInputDto dto)
+        {
+            try
+            {
+                var resultado = await _uow.Reservas.ConfirmarPagoReservaAsync(dto);
+
+                var response = new ResponseDto<ConfirmacionReservaDto>
+                {
+                    Status = "SUCCESS",
+                    Message = "Pago procesado y reserva confirmada correctamente.",
+                    Data = resultado,
+                    TransactionId = Guid.NewGuid().ToString()
+                };
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseDto<object>
+                {
+                    Status = "INTERNAL_SERVER_ERROR",
+                    Message = $"Sucedió un error inesperado al confirmar el pago: {ex.Message}",
+                    Data = null,
+                    TransactionId = Guid.NewGuid().ToString()
+                });
+            }
+        }
     }
 }

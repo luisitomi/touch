@@ -10,7 +10,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { ReservaService } from '../../core/services/reserva.service';
 import { ReservaPreviewModal } from './reserva-preview-modal/reserva-preview-modal';
-import { ToastModule } from "primeng/toast";
+import { ToastModule } from 'primeng/toast';
+import { ProcesoPago } from './procceso-pago/procceso-pago';
 
 @Component({
   selector: 'app-reserva-flujo',
@@ -28,6 +29,7 @@ export class ReservaFlujo implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   private dialogRef?: DynamicDialogRef<ReservaPreviewModal> | null = null;
+  private dialogRef1?: DynamicDialogRef<ProcesoPago> | null = null;
   private calendarioInstancia: any = null;
 
   public espacioId = signal<number | null>(null);
@@ -45,7 +47,7 @@ export class ReservaFlujo implements OnInit {
       return;
     }
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['espacioId']) {
         this.espacioId.set(Number(params['espacioId']));
         this.inicializarCalendario();
@@ -65,12 +67,12 @@ export class ReservaFlujo implements OnInit {
         month: 'Mes',
         week: 'Semana',
         day: 'Día',
-        list: 'Agenda'
+        list: 'Agenda',
       },
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'timeGridWeek,timeGridDay'
+        right: 'timeGridWeek,timeGridDay',
       },
       allDaySlot: false,
       selectable: false,
@@ -79,7 +81,7 @@ export class ReservaFlujo implements OnInit {
       slotLabelFormat: {
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false
+        hour12: false,
       },
       expandRows: true,
       height: 'auto',
@@ -99,7 +101,7 @@ export class ReservaFlujo implements OnInit {
         const queryFin = fechaFinCalculada.toISOString().split('T')[0];
 
         this.cargarDataAgendaSemanal(queryInicio, queryFin);
-      }
+      },
     });
   }
 
@@ -122,7 +124,7 @@ export class ReservaFlujo implements OnInit {
         end: finBloque1Hora.toISOString(),
         className: 'evento-temporal-seleccion',
         display: 'block',
-        editable: false
+        editable: false,
       });
     } else {
       const inicio = this.horaInicioSeleccionada;
@@ -152,7 +154,7 @@ export class ReservaFlujo implements OnInit {
           end: nuevoFinBloque.toISOString(),
           className: 'evento-temporal-seleccion',
           display: 'block',
-          editable: false
+          editable: false,
         });
         return;
       }
@@ -175,8 +177,8 @@ export class ReservaFlujo implements OnInit {
         nombreEspacio: this.nombreEspacio(),
         tarifaBase: this.precioEspacio(),
         inicio: inicio,
-        fin: fin
-      }
+        fin: fin,
+      },
     });
 
     this.dialogRef?.onClose.subscribe((resultado: any) => {
@@ -186,24 +188,14 @@ export class ReservaFlujo implements OnInit {
           eventoTemp.remove();
         }
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Operación Exitosa',
-          detail: resultado.message || 'La reserva se ha creado correctamente.',
-          life: 3000
-        });
-
         this.ultimoInicio = '';
         this.ultimoFin = '';
 
-        const vistaActual = this.calendarioInstancia.view;
-        const queryInicio = vistaActual.activeStart.toISOString().split('T')[0];
-
-        const fechaFinCalculada = new Date(vistaActual.activeEnd);
-        fechaFinCalculada.setDate(fechaFinCalculada.getDate() - 1);
-        const queryFin = fechaFinCalculada.toISOString().split('T')[0];
-
-        this.cargarDataAgendaSemanal(queryInicio, queryFin);
+        if (resultado.reservaId) {
+          this.abrirModalPagoAutomatico(resultado.reservaId, resultado.precioTotalCalculado);
+        } else {
+          this.refrescarCalendario();
+        }
       } else if (this.calendarioInstancia) {
         const eventoTemp = this.calendarioInstancia.getEventById('seleccion-temporal');
         if (eventoTemp) {
@@ -211,6 +203,38 @@ export class ReservaFlujo implements OnInit {
         }
       }
     });
+  }
+
+  private abrirModalPagoAutomatico(reservaId: number,precioTotalCalculado: number): void {
+    this.dialogRef1 = this.dialogService.open(ProcesoPago, {
+      header: 'Procesando Transacción',
+      width: '400px',
+      modal: true,
+      closable: false,
+      dismissableMask: false,
+      styleClass: 'custom-payment-modal',
+      data: {
+        reservaId: reservaId,
+        precioTotalCalculado: precioTotalCalculado,
+      }
+    });
+
+    this.dialogRef1?.onClose.subscribe(() => {
+      this.refrescarCalendario();
+    });
+  }
+
+  private refrescarCalendario(): void {
+    if (!this.calendarioInstancia) return;
+
+    const vistaActual = this.calendarioInstancia.view;
+    const queryInicio = vistaActual.activeStart.toISOString().split('T')[0];
+
+    const fechaFinCalculada = new Date(vistaActual.activeEnd);
+    fechaFinCalculada.setDate(fechaFinCalculada.getDate() - 1);
+    const queryFin = fechaFinCalculada.toISOString().split('T')[0];
+
+    this.cargarDataAgendaSemanal(queryInicio, queryFin);
   }
 
   private cargarDataAgendaSemanal(inicioSemana: string, finSemana: string): void {
@@ -232,12 +256,12 @@ export class ReservaFlujo implements OnInit {
           this.nombreEspacio.set(info.nombre);
           this.precioEspacio.set(info.tarifaBaseHora);
 
-          this.eventosServidor = info.reservasOcupadas.map(res => ({
+          this.eventosServidor = info.reservasOcupadas.map((res) => ({
             title: res.titulo,
             start: res.fechaInicio,
             end: res.fechaFin,
             className: 'evento-ocupado',
-            editable: false
+            editable: false,
           }));
 
           const opcionesActuales = this.opcionesCalendario();
@@ -251,7 +275,7 @@ export class ReservaFlujo implements OnInit {
               ...opcionesActuales,
               slotMinTime: info.horaApertura,
               slotMaxTime: horaCierreAjustada,
-              events: [...this.eventosServidor]
+              events: [...this.eventosServidor],
             });
           }
         }

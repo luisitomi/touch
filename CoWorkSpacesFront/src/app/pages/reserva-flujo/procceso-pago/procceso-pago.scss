@@ -1,0 +1,58 @@
+$bg-card: #1e293b;
+$primary: #3b82f6;
+$text-light: #f8fafc;
+$text-muted: #94a3b8;
+
+::v-deep .p-dialog {
+  background-color: $bg-card;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+
+  .p-dialog-header {
+    background-color: $bg-card;
+    color: $text-light;
+    border-bottom: none;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    font-weight: 700;
+    justify-content: center;
+  }
+
+  .p-dialog-content {
+    background-color: $bg-card;
+    color: $text-light;
+    padding: 1.5rem;
+  }
+}
+
+.pago-container {
+  .loading-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+
+    ::v-deep .spinner-custom {
+      width: 60px;
+      height: 60px;
+
+      .p-progressspinner-circle {
+        stroke: $primary !important;
+      }
+    }
+
+    h3 {
+      color: $text-light;
+      font-size: 1.3rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 0.95rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+}

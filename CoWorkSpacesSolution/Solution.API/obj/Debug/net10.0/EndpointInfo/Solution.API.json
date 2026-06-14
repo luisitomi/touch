@@ -395,6 +395,56 @@
           }
         }
       }
+    },
+    "/api/Reservas/confirmar-pago": {
+      "post": {
+        "tags": [
+          "Reservas"
+        ],
+        "summary": "Confirma el pago de una reserva existente cambiando su estado a Confirmada y actualizando el precio final cobrado.",
+        "requestBody": {
+          "description": "Objeto de transferencia con el ID de la reserva y el monto total final.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmarPagoInputDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmarPagoInputDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmarPagoInputDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SUCCESS. La reserva ha sido pagada, actualizada y confirmada con éxito.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfirmacionReservaDtoResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_SERVER_ERROR. Sucedió un error inesperado al procesar la confirmación del pago en el servidor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -449,6 +499,59 @@
           "transactionId": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfirmacionReservaDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estadoStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfirmacionReservaDtoResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ConfirmacionReservaDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfirmarPagoInputDto": {
+        "type": "object",
+        "properties": {
+          "reservaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precioTotalCalculado": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

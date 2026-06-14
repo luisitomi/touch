@@ -11,4 +11,5 @@ public interface IReservaRepository
     Task<ReservaConsultaDto> VerificarReservaPorUuidAsync(Guid codigoUnicoUuid);
     Task<ReservaDetalleDto> ObtenerDetalleReservaPorUuidAsync(Guid codigoUnicoUuid);
     Task<ReservaResponseDto> CancelarReservaPorUuidAsync(Guid codigoUuid);
+    Task<ConfirmacionReservaDto> ConfirmarPagoReservaAsync(ConfirmarPagoInputDto dto);
 }

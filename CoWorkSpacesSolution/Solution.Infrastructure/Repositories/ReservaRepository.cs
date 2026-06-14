@@ -191,4 +191,21 @@ public class ReservaRepository : IReservaRepository
             throw new FunctionalException("NOT_FOUND_404", "La reserva solicitada no existe en el sistema.");
         }
     }
+
+    public async Task<ConfirmacionReservaDto> ConfirmarPagoReservaAsync(ConfirmarPagoInputDto dto)
+    {
+        string query = "negocio.sp_ConfirmarPagoReserva";
+        var parametros = new
+        {
+            ReservaId = dto.ReservaId,
+            PrecioTotalCalculado = dto.PrecioTotalCalculado
+        };
+
+        return await _connection.QueryFirstAsync<ConfirmacionReservaDto>(
+            query,
+            parametros,
+            transaction: _uow.Transaction,
+            commandType: CommandType.StoredProcedure
+        );
+    }
 }

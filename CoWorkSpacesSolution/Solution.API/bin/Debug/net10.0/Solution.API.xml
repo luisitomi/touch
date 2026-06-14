@@ -74,6 +74,15 @@
             <response code="200">Éxito. La reserva fue cancelada y se detalla la política de reembolso aplicada.</response>
             <response code="400">Petición Incorrecta. El código provisto no es un GUID válido o la reserva no puede ser cancelada (ej. Estado Completada).</response>
         </member>
+        <member name="M:Solution.API.Controllers.ReservasController.ConfirmarPago(Solution.Core.DTOs.ConfirmarPagoInputDto)">
+            <summary>
+            Confirma el pago de una reserva existente cambiando su estado a Confirmada y actualizando el precio final cobrado.
+            </summary>
+            <param name="dto">Objeto de transferencia con el ID de la reserva y el monto total final.</param>
+            <returns>Retorna una estructura unificada con el estado de confirmación de la reserva procesada.</returns>
+            <response code="200">SUCCESS. La reserva ha sido pagada, actualizada y confirmada con éxito.</response>
+            <response code="500">INTERNAL_SERVER_ERROR. Sucedió un error inesperado al procesar la confirmación del pago en el servidor.</response>
+        </member>
         <member name="T:Program">
             <summary>
             Auto-generated public partial Program class for top-level statement apps.

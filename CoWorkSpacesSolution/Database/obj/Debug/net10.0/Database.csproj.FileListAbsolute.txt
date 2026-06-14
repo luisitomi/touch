@@ -9,3 +9,15 @@ C:\Users\Luis\Desktop\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.d
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Database\obj\Debug\net10.0\refint\Database.dll
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.pdb
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Database\obj\Debug\net10.0\ref\Database.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\bin\Debug\net10.0\Database.deps.json
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\bin\Debug\net10.0\Database.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\bin\Debug\net10.0\Database.pdb
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.AssemblyInfoInputs.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.AssemblyInfo.cs
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.sourcelink.json
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\refint\Database.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\Database.pdb
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Database\obj\Debug\net10.0\ref\Database.dll

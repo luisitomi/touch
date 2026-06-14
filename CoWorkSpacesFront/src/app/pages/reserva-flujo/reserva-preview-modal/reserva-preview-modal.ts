@@ -79,7 +79,7 @@ export class ReservaPreviewModal implements OnInit {
             this.cargando.set(false);
           }
         },
-        error: (err) => {
+        error: () => {
           this.cargando.set(false);
           this.ref.close(false);
         },
@@ -106,7 +106,12 @@ export class ReservaPreviewModal implements OnInit {
         next: (response) => {
           this.procesandoPago.set(false);
           if (response.status === 'SUCCESS') {
-            this.ref.close({ seleccionado: true, message: response.message, reservaId: response.data.reservaId });
+            this.ref.close({
+              seleccionado: true,
+              message: response.message,
+              reservaId: response.data.reservaId,
+              precioTotalCalculado: Number(this.precioCalculado())
+            });
           } else {
             this.messageService.add({
               severity: 'error',
@@ -116,7 +121,7 @@ export class ReservaPreviewModal implements OnInit {
             });
           }
         },
-        error: (err) => {
+        error: () => {
           this.procesandoPago.set(false);
           this.ref.close(false);
         },
