@@ -10,3 +10,16 @@ C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\refin
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.pdb
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\ref\Solution.Core.dll
 C:\Users\Luis\Desktop\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.csproj.AssemblyReference.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\bin\Debug\net10.0\Solution.Core.deps.json
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\bin\Debug\net10.0\Solution.Core.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\bin\Debug\net10.0\Solution.Core.pdb
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.csproj.AssemblyReference.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.AssemblyInfoInputs.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.AssemblyInfo.cs
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.sourcelink.json
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\refint\Solution.Core.dll
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\Solution.Core.pdb
+C:\Users\Luis\Desktop\touch\CoWorkSpacesSolution\Solution.Core\obj\Debug\net10.0\ref\Solution.Core.dll

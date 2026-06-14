@@ -9,20 +9,21 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let mensajeDetalle = '';
-
+      console.log(error?.error)
       switch (error.status) {
         case 409:
           mensajeDetalle = '¡Lo sentimos! Este horario acaba de ser reservado por otro usuario.';
           break;
         case 400:
-          mensajeDetalle = error?.error?.message;
+        case 405:
+        case 404:
+          mensajeDetalle = 'El recurso solicitado no existe o está fuera del horario permitido.';
+          mensajeDetalle = error?.error?.message ?? error?.error?.Message ?? mensajeDetalle;
           break;
         case 422:
           mensajeDetalle =
             'Los datos de la reserva no son válidos o están fuera de los parámetros.';
           break;
-        case 404:
-          mensajeDetalle = 'El recurso solicitado no existe o está fuera del horario permitido.';
           break;
         case 500:
           mensajeDetalle = 'Hubo un error interno en el servidor. Por favor, inténtalo más tarde.';
@@ -32,12 +33,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           break;
       }
 
-      messageService.add({
-        severity: 'error',
-        summary: 'Error en la Operación',
-        detail: mensajeDetalle,
-        life: 6000,
-      });
+      if(error.status != 0)
+        messageService.add({
+          severity: 'error',
+          summary: 'Error en la Operación',
+          detail: mensajeDetalle,
+          life: 6000,
+        });
 
       return throwError(() => error);
     }),

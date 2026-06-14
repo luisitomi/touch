@@ -106,7 +106,7 @@ export class ReservaPreviewModal implements OnInit {
         next: (response) => {
           this.procesandoPago.set(false);
           if (response.status === 'SUCCESS') {
-            this.ref.close({ seleccionado: true, message: response.message });
+            this.ref.close({ seleccionado: true, message: response.message, reservaId: response.data.reservaId });
           } else {
             this.messageService.add({
               severity: 'error',

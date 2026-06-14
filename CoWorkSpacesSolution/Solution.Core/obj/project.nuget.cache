@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y8qS7A7b4is=",
+  "dgSpecHash": "gh2XTmAmOSU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Core\\Solution.Core.csproj",
+  "projectFilePath": "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Core\\Solution.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luis\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
   ],

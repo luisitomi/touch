@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iRtH8Bpd8pQ=",
+  "dgSpecHash": "WM0fcrdo07E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.API\\Solution.API.csproj",
+  "projectFilePath": "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.API\\Solution.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luis\\.nuget\\packages\\dapper\\2.1.79\\dapper.2.1.79.nupkg.sha512",
     "C:\\Users\\Luis\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",

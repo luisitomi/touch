@@ -36,6 +36,7 @@ namespace Solution.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseDto<ReservaResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status405MethodNotAllowed)]
         [ProducesResponseType(typeof(ResponseDto<object>), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CrearReserva([FromBody] CrearReservaDto dto)
         {

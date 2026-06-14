@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj": {}
+    "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj": {
+    "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj",
+        "projectUniqueName": "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj",
         "projectName": "Solution.Common",
-        "projectPath": "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj",
+        "projectPath": "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Common\\Solution.Common.csproj",
         "packagesPath": "C:\\Users\\Luis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luis\\Desktop\\CoWorkSpacesSolution\\Solution.Common\\obj\\",
+        "outputPath": "C:\\Users\\Luis\\Desktop\\touch\\CoWorkSpacesSolution\\Solution.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

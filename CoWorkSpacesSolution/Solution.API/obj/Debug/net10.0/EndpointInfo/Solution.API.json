@@ -82,6 +82,16 @@
               }
             }
           },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseDto"
+                }
+              }
+            }
+          },
           "409": {
             "description": "Conflict",
             "content": {

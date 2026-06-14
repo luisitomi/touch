@@ -97,6 +97,10 @@ public class ReservaRepository : IReservaRepository
         {
             throw new FunctionalException("SPACE_NOT_FOUND", "El espacio de coworking especificado no existe en el sistema.");
         }
+        catch (SqlException ex) when (ex.Message.Contains("MAINTENANCE_405"))
+        {
+            throw new FunctionalException("SPACE_IN_MAINTENANCE", "El espacio de coworking seleccionado se encuentra en mantenimiento.");
+        }
         catch (SqlException ex) when (ex.Message.Contains("CONFLICT_409"))
         {
             throw new DbUpdateConcurrencyException("El horario solicitado ya se encuentra ocupado por otra transacción simultánea.");
