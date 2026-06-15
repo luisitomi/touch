@@ -1,0 +1,61 @@
+<div class="formulario-container">
+  <div class="tarjeta-formulario">
+    <div class="encabezado-tarjeta">
+      <h2>Registrar Nuevo Espacio Coworking</h2>
+    </div>
+
+    <div class="cuerpo-tarjeta">
+      <form [formGroup]="espacioForm" (ngSubmit)="onSubmit()">
+
+        <div class="grupo-campo">
+          <label class="etiqueta-formulario">Nombre del Espacio</label>
+          <input type="text" class="control-formulario" formControlName="nombre" placeholder="Ej. Sala Ejecutiva A">
+          <span class="error-validacion" *ngIf="espacioForm.get('nombre')?.touched && espacioForm.get('nombre')?.invalid">
+            El nombre es requerido (máx 100 caracteres).
+          </span>
+        </div>
+
+        <div class="grupo-campo">
+          <label class="etiqueta-formulario">Capacidad (Personas)</label>
+          <input type="number" class="control-formulario" formControlName="capacidad" placeholder="0">
+          <span class="error-validacion" *ngIf="espacioForm.get('capacidad')?.touched && espacioForm.get('capacidad')?.invalid">
+            La capacidad debe ser mayor a 0.
+          </span>
+        </div>
+
+        <div class="grupo-campo">
+          <label class="etiqueta-formulario">Tarifa Base por Hora ($)</label>
+          <input type="number" step="0.01" class="control-formulario" formControlName="tarifaBaseHora" placeholder="0.00">
+          <span class="error-validacion" *ngIf="espacioForm.get('tarifaBaseHora')?.touched && espacioForm.get('tarifaBaseHora')?.invalid">
+            La tarifa base no puede ser negativa.
+          </span>
+        </div>
+
+        <div class="fila-horarios">
+          <div class="columna-horario">
+            <label class="etiqueta-formulario">Horario Apertura</label>
+            <input type="time" step="1" class="control-formulario" formControlName="horarioApertura">
+          </div>
+
+          <div class="columna-horario">
+            <label class="etiqueta-formulario">Horario Cierre</label>
+            <input type="time" step="1" class="control-formulario" formControlName="horarioCierre">
+          </div>
+        </div>
+
+        <div class="error-global" *ngIf="espacioForm.hasError('horarioInvalido') && espacioForm.get('horarioCierre')?.touched">
+          ⚠️ El horario de cierre debe ser posterior al de apertura.
+        </div>
+
+        <div *ngIf="successMessage" class="alerta alerta-exito">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="alerta alerta-error">{{ errorMessage }}</div>
+
+        <button type="submit" class="boton-enviar" [disabled]="loading || espacioForm.invalid">
+          <span *ngIf="loading" class="spinner"></span>
+          Guardar Espacio
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+// Contenedor principal que centra la tarjeta en pantalla blanca
+.formulario-container {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+// Tarjeta estructurada con fondo blanco limpio
+.tarjeta-formulario {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+// Encabezado corporativo azul degradado
+.encabezado-tarjeta {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}
+
+.cuerpo-tarjeta {
+  padding: 25px;
+}
+
+// Organización de campos verticales
+.grupo-campo {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.etiqueta-formulario {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+// Inputs forzados a fondo blanco, texto oscuro y bordes redondeados finos
+.control-formulario {
+  width: 100% !important;
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  font-size: 0.95rem !important;
+  box-sizing: border-box !important;
+  height: 42px !important;
+
+  &:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+  }
+}
+
+// Grid de horarios nativo usando Flexbox (No depende de Bootstrap)
+.fila-horarios {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 18px;
+
+  .columna-horario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// Manejo de errores visuales
+.error-validacion, .error-global {
+  font-size: 0.8rem;
+  color: #e53e3e;
+  margin-top: 4px;
+  text-align: left;
+}
+.error-global {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+// Estilos del botón de envío
+.boton-enviar {
+  width: 100%;
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  margin-top: 10px;
+
+  &:hover:not(:disabled) {
+    background-color: #0b5ed7;
+  }
+
+  &:disabled {
+    background-color: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+  }
+}
+
+// Alertas semánticas
+.alerta {
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  text-align: center;
+  margin-bottom: 15px;
+
+  &.alerta-exito {
+    background-color: #def7ec;
+    color: #03543f;
+  }
+  &.alerta-error {
+    background-color: #fde8e8;
+    color: #9b1c1c;
+  }
+}

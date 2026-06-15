@@ -50,25 +50,10 @@
           </ul>
 
           <div class="action-footer" *ngIf="reserva().estado === 'Confirmada'">
-            @if (obtenerTramoCancelacion(reserva().fechaCompletaInicio) !== 'PENALIDAD_TOTAL') {
             <div class="flex-column-gap">
-              @if (obtenerTramoCancelacion(reserva().fechaCompletaInicio) === 'REEMBOLSO_PARCIAL') {
-              <div class="warn-policy-inline-alert mb-3">
-                <i class="pi pi-info-circle"></i>
-                <span>Nota: Esta cancelación aplica penalidad del 50% por encontrarse en el rango de 24 a 48
-                  horas.</span>
-              </div>
-              }
               <button pButton label="Proceder con la Cancelación" icon="pi pi-times-circle" class="p-button-danger"
                 (click)="cancelarReserva()" [loading]="procesandoCancelacion()"></button>
             </div>
-            } @else {
-            <div class="error-policy-alert">
-              <i class="pi pi-exclamation-triangle"></i>
-              <span>El botón de cancelación se encuentra deshabilitado debido a que la reserva inicia en menos de 24
-                horas.</span>
-            </div>
-            }
           </div>
         </div>
       </p-card>

@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/salas/salas').then(m => m.Salas)
   },
   {
+    path: 'salas/crear',
+    loadComponent: () => import('./pages/crear-espacio/crear-espacio.component').then(m => m.CrearEspacioComponent)
+  },
+  {
     path: 'reservar',
     loadComponent: () => import('./pages/reserva-flujo/reserva-flujo').then(m => m.ReservaFlujo)
   },
